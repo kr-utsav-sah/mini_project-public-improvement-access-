@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utsav's Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121938;
+      --muted: #9aa4bf;
+      --text: #e6ebff;
+      --accent: #6ea8fe;
+      --accent-2: #7ae0dd;
+      --danger: #ff6b6b;
+      --ok: #38d39f;
+      --ring: rgba(110,168,254,0.6);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 800px at 80% -10%, #1a2050 0%, transparent 60%),
+               radial-gradient(1000px 700px at -10% 110%, #12304a 0%, transparent 70%), var(--bg);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    /* NAV */
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { font-weight: 800; letter-spacing: .5px; font-size: 22px; }
+    .nav-actions { display:flex; gap:10px; }
+    .btn { border: 1px solid rgba(255,255,255,0.15); background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); color: var(--text); padding: 10px 14px; border-radius: 14px; cursor:pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.25); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0a0f2b; border: none; font-weight: 700; }
+
+    /* HERO */
+    .hero { display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; align-items:center; padding: 48px 0 32px; }
+    .hero h1 { font-size: clamp(32px, 5vw, 54px); margin: 0 0 12px; line-height: 1.02; }
+    .hero p { color: var(--muted); font-size: clamp(15px, 2vw, 18px); margin-top: 8px; }
+    .hero-cta { margin-top: 22px; display:flex; gap:12px; flex-wrap: wrap; }
+
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+    .auth-card { padding: 22px; }
+
+    .illus { aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; position: relative; }
+    .blob { position:absolute; inset:0; background: radial-gradient(400px 400px at 30% 30%, rgba(110,168,254,.25), transparent 60%),
+                                     radial-gradient(480px 480px at 70% 80%, rgba(122,224,221,.25), transparent 60%);
+    }
+    .grid { position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 24px 24px; filter: blur(.2px); }
+
+    /* FORMS */
+    form { display:flex; flex-direction: column; gap: 12px; }
+    label { font-size: 13px; color: var(--muted); }
+    .input { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; color: var(--text); outline: none; transition: box-shadow .15s ease, border-color .15s ease; }
+    .input:focus { box-shadow: 0 0 0 4px var(--ring); border-color: var(--accent); }
+
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .helper { font-size: 12px; color: var(--muted); }
+    .error { color: var(--danger); font-size: 12px; }
+    .success { color: var(--ok); font-size: 13px; }
+
+    .tabs { display:flex; gap:6px; padding:6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; width: max-content; }
+    .tab { padding: 8px 12px; border-radius: 12px; cursor: pointer; font-weight: 600; opacity: .7; }
+    .tab.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0a0f2b; opacity: 1; }
+
+    .divider { height: 1px; background: rgba(255,255,255,0.12); margin: 14px 0; }
+
+    footer { padding: 40px 0; text-align:center; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <div class="brand">Project_01<span style="color:var(--accent)">.in</span></div>
+      <div class="nav-actions">
+        <button class="btn" id="openLoginTop">Login</button>
+        <button class="btn primary" id="openRegisterTop">Get Started</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- LANDING / HERO -->
+    <section class="hero">
+      <div>
+        <h1>Simple, secure<br/>auth demo in your browser</h1>
+        <p>Inspired by your C++ console version: now with a sleek landing page, client‑side validation, and local persistence using <code>localStorage</code>. No backend required for the demo.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#auth">Create an account</a>
+          <button class="btn" id="scrollToLogin">I already have an account</button>
+        </div>
+        <p class="helper" style="margin-top:10px">Note: For real apps use a server + database and never store raw passwords. This demo hashes passwords with Web Crypto (SHA‑256) before storing.</p>
+      </div>
+      <div class="illus card">
+        <div class="blob"></div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <!-- AUTH CARD -->
+    <section id="auth" class="card auth-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap: wrap;">
+        <div class="tabs" role="tablist" aria-label="Authentication tabs">
+          <div class="tab active" role="tab" aria-selected="true" id="tab-register">Register</div>
+          <div class="tab" role="tab" aria-selected="false" id="tab-login">Login</div>
+        </div>
+        <div id="flash" aria-live="polite"></div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" autocomplete="off" novalidate>
+        <div class="row">
+          <div>
+            <label for="fullName">Full Name</label>
+            <input id="fullName" class="input" type="text" placeholder="Ada Lovelace" required />
+          </div>
+          <div>
+            <label for="username">Username</label>
+            <input id="username" class="input" type="text" placeholder="adal" minlength="3" required />
+            <div class="helper">Username must be unique.</div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" class="input" type="email" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="phone">Phone (10 digits)</label>
+            <input id="phone" class="input" type="tel" inputmode="numeric" pattern="\\d{10}" placeholder="9876543210" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="pwd">Password</label>
+            <input id="pwd" class="input" type="password" placeholder="••••••••" required />
+            <div class="helper">Min 8 chars, 1 upper, 1 lower, 1 digit, 1 special.</div>
+          </div>
+          <div>
+            <label for="pwd2">Confirm Password</label>
+            <input id="pwd2" class="input" type="password" placeholder="••••••••" required />
+          </div>
+        </div>
+        <button class="btn primary" type="submit">Create Account</button>
+      </form>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" style="display:none" autocomplete="off" novalidate>
+        <div>
+          <label for="loginUser">Username</label>
+          <input id="loginUser" class="input" type="text" placeholder="your username" required />
+        </div>
+        <div>
+          <label for="loginPass">Password</label>
+          <input id="loginPass" class="input" type="password" placeholder="••••••••" required />
+        </div>
+        <button class="btn primary" type="submit">Login</button>
+      </form>
+
+      <div class="divider"></div>
+      <p class="muted">Tip: refresh-resistant using <code>localStorage</code>. Use the tabs to switch between Register and Login.</p>
+    </section>
+
+    <!-- DASHBOARD (shown after login) -->
+    <section id="dashboard" class="card auth-card" style="display:none">
+      <h2 style="margin:0 0 6px">Welcome, <span id="welcomeName"></span> 👋</h2>
+      <p class="muted">You're logged in as <code id="welcomeUser"></code>. This is a placeholder dashboard.</p>
+      <div style="display:flex; gap:10px; margin-top:12px">
+        <button class="btn" id="logoutBtn">Log out</button>
+        <button class="btn" id="clearAllBtn" title="Remove all saved accounts">Clear demo data</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built for learning • C++ console ➜ HTML/CSS/JS SPA • © <span id="year"></span>
+  </footer>
+
+  <script>
+    // ---------- Helpers ----------
+    const $ = sel => document.querySelector(sel);
+
+    function setFlash(msg, type = "info") {
+      const el = $('#flash');
+      if (!el) return;
+      el.textContent = msg || '';
+      el.className = type === 'error' ? 'error' : (type === 'success' ? 'success' : 'muted');
+    }
+
+    function validateEmail(email) {
+      // mirrors your C++ checks: one '@', not first/last, dot after '@', not adjacent
+      const at = email.indexOf('@');
+      if (at <= 0 || at === email.length - 1) return false;
+      if (email.indexOf('@', at + 1) !== -1) return false;
+      const dot = email.indexOf('.', at);
+      if (dot === -1 || dot === at + 1 || dot === email.length - 1) return false;
+      return true;
+    }
+
+    function validatePhone(phone) {
+      return /^\d{10}$/.test(phone);
+    }
+
+    function validatePassword(pwd) {
+      if (!pwd || pwd.length < 8) return false;
+      const hasUpper = /[A-Z]/.test(pwd);
+      const hasLower = /[a-z]/.test(pwd);
+      const hasDigit = /\d/.test(pwd);
+      const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+      return hasUpper && hasLower && hasDigit && hasSpecial;
+    }
+
+    async function sha256(text) {
+      const enc = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const DB_KEY = 'auth_demo_users_v1';
+
+    function loadUsers() {
+      try { return JSON.parse(localStorage.getItem(DB_KEY)) || []; } catch { return []; }
+    }
+    function saveUsers(users) { localStorage.setItem(DB_KEY, JSON.stringify(users)); }
+
+    function userByUsername(username) {
+      return loadUsers().find(u => u.username.toLowerCase() === username.toLowerCase());
+    }
+
+    function showTab(which) {
+      const regActive = which === 'register';
+      $('#tab-register').classList.toggle('active', regActive);
+      $('#tab-login').classList.toggle('active', !regActive);
+      $('#registerForm').style.display = regActive ? 'flex' : 'none';
+      $('#loginForm').style.display = regActive ? 'none' : 'flex';
+      setFlash('');
+    }
+
+    function showDashboard(user) {
+      $('#auth').style.display = 'none';
+      $('#dashboard').style.display = 'block';
+      $('#welcomeName').textContent = user.name;
+      $('#welcomeUser').textContent = user.username;
+      setFlash('');
+    }
+
+    function showAuth() {
+      $('#dashboard').style.display = 'none';
+      $('#auth').style.display = 'block';
+    }
+
+    // ---------- Event wiring ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      $('#year').textContent = new Date().getFullYear();
+
+      // Tabs
+      $('#tab-register').addEventListener('click', () => showTab('register'));
+      $('#tab-login').addEventListener('click', () => showTab('login'));
+
+      // Hero buttons
+      $('#scrollToLogin').addEventListener('click', () => { showTab('login'); document.getElementById('auth').scrollIntoView({ behavior:'smooth' }); });
+      $('#openLoginTop').addEventListener('click', () => { showTab('login'); document.getElementById('auth').scrollIntoView({ behavior:'smooth' }); });
+      $('#openRegisterTop').addEventListener('click', () => { showTab('register'); document.getElementById('auth').scrollIntoView({ behavior:'smooth' }); });
+
+      // Register submit
+      $('#registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = $('#fullName').value.trim();
+        const username = $('#username').value.trim();
+        const email = $('#email').value.trim();
+        const phone = $('#phone').value.trim();
+        const pwd = $('#pwd').value;
+        const pwd2 = $('#pwd2').value;
+
+        if (!name || !username) return setFlash('Please fill all required fields.', 'error');
+        if (!validateEmail(email)) return setFlash('Invalid email format.', 'error');
+        if (!validatePhone(phone)) return setFlash('Invalid phone number. Must be 10 digits.', 'error');
+        if (pwd !== pwd2) return setFlash('Passwords do not match.', 'error');
+        if (!validatePassword(pwd)) return setFlash('Password does not meet criteria.', 'error');
+        if (userByUsername(username)) return setFlash('Username already exists. Choose another.', 'error');
+
+        const hash = await sha256(pwd);
+        const users = loadUsers();
+        const user = { name, username, email, phone, passwordHash: hash, createdAt: Date.now() };
+        users.push(user);
+        saveUsers(users);
+        setFlash('Registration successful! You can now login.', 'success');
+        // switch to login with prefilled username
+        showTab('login');
+        $('#loginUser').value = username;
+        $('#loginPass').value = '';
+      });
+
+      // Login submit
+      $('#loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const loginUser = $('#loginUser').value.trim();
+        const loginPass = $('#loginPass').value;
+        if (!loginUser || !loginPass) return setFlash('Enter username and password.', 'error');
+        const u = userByUsername(loginUser);
+        if (!u) return setFlash('Invalid username or password.', 'error');
+        const hash = await sha256(loginPass);
+        if (hash !== u.passwordHash) return setFlash('Invalid username or password.', 'error');
+        setFlash('Login successful!', 'success');
+        showDashboard(u);
+      });
+
+      // Logout
+      $('#logoutBtn').addEventListener('click', () => { showAuth(); showTab('login'); setFlash('You have been logged out.', 'success'); });
+
+      // Clear demo data
+      $('#clearAllBtn').addEventListener('click', () => {
+        if (confirm('This will remove all demo accounts from localStorage. Continue?')) {
+          localStorage.removeItem(DB_KEY);
+          setFlash('All demo accounts cleared.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
