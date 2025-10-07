@@ -1,0 +1,182 @@
+@media only screen and(max-width:767px){
+    
+}
+
+
+footer{
+  background-color: rgb(221, 167, 16);
+  align-content: baseline;
+  margin-top: 30px;
+  width: 100%;
+
+}
+
+.div .d1{
+  background-color: brown;
+}
+header{
+  display: inline-block;
+  text-align: center;
+  background-color: rgb(239, 143, 65);
+  width:100%;
+  height: 50px;
+  margin-bottom: 40px;
+}
+header a {
+  width: 50px;
+  padding-right: 50px ;
+}
+
+
+div{
+  display: inline-flex;
+  width: 100%;
+  height: 95px;
+  margin-bottom: 0%;
+}
+.div1, .div2{
+  display: inline-block;
+  width:50%;
+}
+.div1{
+  background-color:rgb(219, 219, 104);
+}
+.div2{
+  background-color:rgb(219, 219, 104);
+  align-items: end;
+}
+.div2 h2{
+ align-content: end;
+  color: rgb(227, 159, 10);
+}
+.div1 h1{
+  color: rgb(232, 129, 19);
+
+}
+.div9 h1{
+  color: #e10f0f;
+  align-items: center;
+}
+main{
+  margin-bottom: 20px;
+}
+
+
+form {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #cac452;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 50%;
+  align-items: center;
+  align-self: center;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+input[type="text"]:hover{
+  background-color: #f1de8c; 
+  transform: translateY(-2px);
+}
+input[type="email"]:hover{
+  background-color: #ac5858; 
+  transform: translateY(-2px);
+}
+input[type="tel"]:hover{
+  background-color: #f88080; 
+  transform: translateY(-2px);
+}
+input[type="number"]:hover{
+  background-color: #f3a66c; 
+  transform: translateY(-2px);
+}
+input[type="password"]
+{ width: 90%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+background-color: #ffffff;
+}
+input[type="password"]:hover
+{
+background-color: #d7894d; 
+  transform: translateY(-2px);
+}
+
+
+.div7{
+  background-color:rgb(210, 210, 93);
+  width: 100%;
+}
+
+.pay{
+  margin:0%;
+  background-color: #4CAF50;
+  width:200px;
+  height: 70px;
+
+}
+select {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ac5858;
+}
+
+
+.nav1 {
+  display: inline-block;
+  text-align: center;
+  background-color: rgb(235, 248, 56);
+  width:100%;
+  height: 50px;
+}
+.nav1 a {
+  width: 50px;
+  padding-right: 50px ;
+}
+
+.cod{
+margin-bottom: 60px;
+}
+
+.div99{
+width: 50%;
+background-color:rgb(210, 210, 93);
+}

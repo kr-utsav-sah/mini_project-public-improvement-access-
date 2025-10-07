@@ -1,0 +1,36 @@
+@media only screen and(max-width:767px){
+    
+}
+
+
+.container{
+    height:200px;
+    width: 250px;
+    color:green;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 15px;
+    background-color: crimson;
+    font-family: Arial, Helvetica, sans-serif;
+}
+input{
+    width:25px;
+    height:25px;
+    margin: 8px 3px;
+    font-size: 18px;
+    outline: none;
+    border:1px solid goldenrod;
+    border-radius: 5px;
+    text-align: center;
+    color:green;
+    background-color: transparent;
+    
+}
+.div99{
+    width: 50%;
+    background-color:rgb(210, 210, 93);
+    }
