@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TimelessTrends</title>
+        <link rel="stylesheet" href="style5.css">
+    </head>
+    <body>
+
+        <div class="container">
+
+            <div class="div1">
+                <h1><img src="5th.png" alt="" width="200px" height="70px">TimelessTrends</h1>
+            </div>
+            <div class="div1">
+                <h1><img src="shopping-online.png" alt="" width="125px" height="70px">This is Your Virtual Cheakout Counter</h1>
+            </div>
+
+        </div>
+
+        <header>
+            <nav>
+                <ul>
+
+                    <a href="products.html">Our Collection</a>  
+                    <a href="cart.html">Cart</a> 
+                    <a href="feedback.html">Feedback</a>
+                    <a href="Login.html">Login</a>
+                         
+                </ul>                
+            </nav>
+        </header>
+
+    </body>
+
+   <main>
+    <div class="pay">
+        <a href="paymentoption.html" >Cheakout and Payment</a>
+    </div>
+
+    <div id="cart-items">
+        <!-- Cart items will be inserted here dynamically -->
+    </div>
+
+    <button onclick="clearCart()">Clear Cart</button>
+    <button onclick="checkout()">Checkout</button>
+
+    <script>
+        // Function to display the cart items
+        function displayCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.textContent = `${item.name} - $${item.price}`;
+                cartItemsContainer.appendChild(itemElement);
+            });
+        }
+
+        // Function to clear the cart
+        function clearCart() {
+            localStorage.removeItem('cart');
+            displayCart();
+        }
+
+        // Placeholder for a checkout process
+        function checkout() {
+            alert("Your Order is on the way...");
+        }
+
+        // Display cart when the page loads
+        displayCart();
+    </script>
+   </main>
+   
+    <footer>
+        <footer class="">
+            <div class="footer-container">
+              <div>
+                <h4>TimelessTrends</h4>
+                    <p>"Change your style Time to Time with <strong>TimelessTrends</strong>"</p>
+                    <p class="spaced-paragraph" >You can found us at <strong>your HEART</strong></p>
+                       
+                    <p class="spaced-paragraph">Contact us on +91 92******34 , +91 90******70</p>
+                <p>E-Mail us k***************@gmail.com , ut*************@iiitbh.ac.in</p>
+              </div>
+              <div>
+                <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                            <li><a>About Us</a></li>
+                            <li><a>Services</a></li>
+                        <p>We provide services like selling clothes such as T-Shirts, Shirts for men and women.</p>
+                    </ul>
+              </div>
+            </div>
+            <p>Special Thanks to</p>
+            <a href="https://www.flaticon.com/free-icons/shopping-online" title="shopping online icons">Shopping online icons created by itim2101 - Flaticon</a>
+                <p class="copyright">&copy; 2023 TimelessTrends. All Rights Reserved.</p>
+          </footer>
+    </footer>
+</html>

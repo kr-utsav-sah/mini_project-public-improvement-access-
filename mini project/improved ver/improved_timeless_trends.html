@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimelessTrends - Modern Fashion Store</title>
+    <style>
+/* --------------------------------------
+   1. BASE STYLING & FONT
+   -------------------------------------- */
+    /* Import Inter font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-color: #1a1a1a;       /* Deep Black/Charcoal for text and primary elements */
+        --secondary-color: #6c757d;     /* Muted Grey for subtle details */
+        --accent-color: #b8860b;        /* Gold/Bronze for highlights and buttons */
+        --background-color: #f8f9fa;    /* Very Light Grey/Off-White for backgrounds */
+        --surface-color: #ffffff;       /* Pure White for cards and modals */
+        --border-radius-lg: 12px;
+        --border-radius-sm: 6px;
+        --shadow-elevation-1: 0 4px 6px rgba(0, 0, 0, 0.05);
+        --shadow-elevation-2: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--primary-color);
+        background-color: var(--background-color);
+        line-height: 1.6;
+    }
+    
+    /* Utility for hidden elements */
+    .hidden {
+        display: none !important;
+    }
+
+    /* --------------------------------------
+       2. HEADER & NAVIGATION (Responsive)
+       -------------------------------------- */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--surface-color);
+        box-shadow: var(--shadow-elevation-1);
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: padding 0.3s;
+    }
+
+    #logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        letter-spacing: 0.05em;
+    }
+
+    #nav {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .nav-link, .btn-auth {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--border-radius-sm);
+        transition: color 0.2s, background-color 0.2s, transform 0.1s;
+        cursor: pointer;
+    }
+
+    .nav-link:hover, .btn-auth:hover {
+        color: var(--primary-color);
+        background-color: rgba(184, 134, 11, 0.1); /* Slight accent hover */
+    }
+    
+    .btn-auth {
+        border: 1px solid var(--accent-color);
+        color: var(--accent-color);
+        padding: 0.5rem 1rem;
+    }
+    
+    .btn-auth:hover {
+        background-color: var(--accent-color);
+        color: var(--surface-color);
+    }
+    
+    /* Mobile Navigation (Hamburger) - Assume it exists in HTML */
+    .menu-icon {
+        display: none; /* Hidden on desktop */
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+        #nav {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--surface-color);
+            box-shadow: var(--shadow-elevation-2);
+            padding: 1rem 5%;
+            gap: 0.5rem;
+        }
+        
+        #nav.open {
+            display: flex;
+        }
+
+        .menu-icon {
+            display: block;
+        }
+        
+        .nav-link, .btn-auth {
+            padding: 0.75rem 0;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    /* --------------------------------------
+       3. MAIN CONTENT LAYOUT
+       -------------------------------------- */
+    main {
+        padding: 2rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .section {
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --------------------------------------
+       4. HERO SECTION
+       -------------------------------------- */
+    #hero {
+        height: 70vh;
+        /* Using a placeholder image for a modern collection */
+        background-image: url('https://placehold.co/1400x700/D1C4E9/1a1a1a?text=Timeless+Elegance');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--surface-color);
+        text-align: center;
+        margin-bottom: 3rem;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        position: relative;
+    }
+    
+    #hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text contrast */
+    }
+    
+    .hero-content {
+        z-index: 10;
+    }
+
+    #hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 0.5rem;
+        font-weight: 900;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #hero p {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+    }
+
+    .btn-primary {
+        background-color: var(--accent-color);
+        color: var(--surface-color);
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+        box-shadow: var(--shadow-elevation-1);
+        display: inline-block;
+    }
+
+    .btn-primary:hover {
+        background-color: #d8b245; /* Darker gold */
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-elevation-2);
+    }
+    
+    /* --------------------------------------
+       5. PRODUCT GRIDS & CARDS
+       -------------------------------------- */
+    .product-grid {
+        /* Responsive grid with a minimum card width of 250px */
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding-top: 1.5rem;
+    }
+    
+    .grid-heading {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .product-card {
+        background-color: var(--surface-color);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-elevation-1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+        border: 1px solid #eee; /* Subtle border */
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+    }
+    
+    .product-card:hover img {
+        transform: scale(1.05);
+    }
+
+    .product-info {
+        padding: 1rem;
+    }
+
+    .product-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .product-info p {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .product-info .price {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .add-to-cart-btn {
+        background-color: var(--primary-color);
+        color: var(--surface-color);
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    /* --------------------------------------
+       6. CART SECTION
+       -------------------------------------- */
+    #cartItemsList {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+    }
+    
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+        background-color: var(--surface-color);
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    
+    .cart-item-details {
+        flex-grow: 1;
+        margin-right: 1rem;
+    }
+
+    .cart-item-details h4 {
+        margin: 0 0 0.25rem 0;
+        font-weight: 600;
+    }
+    
+    .cart-item-details p {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+    }
+
+    .remove-from-cart-btn {
+        background-color: var(--accent-color);
+        color: var(--surface-color);
+        border: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: opacity 0.2s;
+    }
+    
+    .remove-from-cart-btn:hover {
+        opacity: 0.8;
+    }
+
+    .cart-summary {
+        padding: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius-lg);
+        background-color: var(--surface-color);
+        margin-top: 1.5rem;
+    }
+    
+    .cart-summary p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .checkout-btn {
+        width: 100%;
+        display: block;
+        padding: 1rem;
+        font-size: 1.1rem;
+        background-color: var(--primary-color);
+        color: var(--surface-color);
+        border: none;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .checkout-btn:hover {
+        background-color: var(--accent-color);
+    }
+
+
+    /* --------------------------------------
+       7. FORMS (Login/Register) & MODALS
+       -------------------------------------- */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .modal.show {
+        display: flex;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background-color: var(--surface-color);
+        padding: 2rem;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-elevation-2);
+        max-width: 90%;
+        width: 400px;
+        position: relative;
+        transform: translateY(-20px);
+        transition: transform 0.3s;
+    }
+    
+    .modal.show .modal-content {
+        transform: translateY(0);
+    }
+
+    .close-btn {
+        color: var(--secondary-color);
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        font-weight: bold;
+        transition: color 0.2s;
+        cursor: pointer;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: var(--accent-color);
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    .modal h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius-sm);
+        font-size: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--accent-color);
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.3);
+    }
+
+    .form-submit-btn {
+        width: 100%;
+        background-color: var(--primary-color);
+        color: var(--surface-color);
+        padding: 0.75rem;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        transition: background-color 0.2s;
+    }
+
+    .form-submit-btn:hover {
+        background-color: var(--accent-color);
+    }
+    
+    /* --------------------------------------
+       8. TOAST MESSAGES
+       -------------------------------------- */
+    #toastContainer {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .toast {
+        background-color: var(--primary-color);
+        color: var(--surface-color);
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius-sm);
+        box-shadow: var(--shadow-elevation-2);
+        min-width: 250px;
+        max-width: 400px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .toast.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    .toast.success {
+        background-color: #2ecc71; /* Green for success */
+    }
+    
+    .toast.error {
+        background-color: var(--accent-color); /* Gold/Bronze for error */
+    }
+    
+    .toast p {
+        margin: 0;
+        font-weight: 500;
+    }
+
+    /* --------------------------------------
+       9. FOOTER
+       -------------------------------------- */
+    footer {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        padding: 3rem 5%;
+        margin-top: 4rem;
+        text-align: center;
+        border-top: 5px solid var(--accent-color);
+    }
+
+    footer p {
+        margin: 0;
+    }
+    
+</style>
+<!-- Font Awesome for icons (menu, cart, etc.) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" id="logo" onclick="showSection('home')">TimelessTrends</a>
+        <div id="nav">
+            <a href="#" class="nav-link" onclick="showSection('home')">Home</a>
+            <a href="#" class="nav-link" onclick="showSection('collection')">Collection</a>
+            <a href="#" class="nav-link" onclick="showSection('about')">About</a>
+            <a href="#" class="nav-link" onclick="showSection('cart')"><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)</a>
+            <button class="btn-auth" onclick="showModal('loginModal')">Login</button>
+        </div>
+        <!-- Hamburger Menu Icon for Mobile -->
+        <div class="menu-icon" onclick="toggleNav()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero Banner -->
+            <div id="hero">
+                <div class="hero-content">
+                    <h1>The Modern Muse Collection</h1>
+                    <p>Elevate your wardrobe with effortless style and quality craftsmanship.</p>
+                    <a href="#" class="btn-primary" onclick="showSection('collection')">Shop Now</a>
+                </div>
+            </div>
+
+            <h2 class="grid-heading">Featured Trends</h2>
+            <div id="featuredProductsGrid" class="product-grid">
+                <!-- Featured Product Cards will be rendered here by JS -->
+            </div>
+            
+            <h2 class="grid-heading" style="margin-top: 3rem;">You Might Also Like</h2>
+            <div id="randomSuggestionsGrid" class="product-grid">
+                <!-- Random Suggestion Cards will be rendered here by JS -->
+            </div>
+        </section>
+
+        <!-- Collection Section -->
+        <section id="collection" class="section">
+            <h1 class="grid-heading">The Full Collection</h1>
+            <div id="allProductsGrid" class="product-grid">
+                <!-- All Product Cards will be rendered here by JS -->
+            </div>
+        </section>
+        
+        <!-- Cart Section -->
+        <section id="cart" class="section">
+            <h1 class="grid-heading">Your Shopping Cart</h1>
+            <ul id="cartItemsList">
+                <!-- Cart items will be rendered here -->
+                <li style="text-align: center; padding: 2rem; color: var(--secondary-color);">Your cart is empty.</li>
+            </ul>
+            <div id="cartSummary" class="cart-summary hidden">
+                <p>Total: <span id="cartTotal">₹0.00</span></p>
+                <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h1 class="grid-heading">Our Story</h1>
+            <div style="max-width: 800px; margin: 0 auto; padding: 2rem; background-color: var(--surface-color); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-elevation-1);">
+                <p style="margin-bottom: 1.5rem;">
+                    TimelessTrends was founded on the principle that true style is enduring, not fleeting. 
+                    We focus on high-quality, sustainable materials and clean, classic designs that transcend seasons. 
+                    Our mission is to help you build a thoughtful, versatile wardrobe that you'll love for years to come.
+                </p>
+                <p>
+                    Every piece is carefully curated and ethically sourced, ensuring that your fashion choices
+                    support both the environment and fair labor practices. Thank you for joining us on this journey.
+                </p>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 TimelessTrends. All rights reserved. | Fashion with an enduring view.</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Sign In</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="********">
+                </div>
+                <button type="submit" class="form-submit-btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                New user? <a href="#" onclick="showModal('registerModal'); closeModal('loginModal'); return false;" style="color: var(--accent-color);">Create an account</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name:</label>
+                    <input type="text" id="registerName" name="name" required placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="password" required placeholder="Minimum 6 characters">
+                </div>
+                <button type="submit" class="form-submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toast Message Container -->
+    <div id="toastContainer">
+        <!-- Toast messages will be appended here -->
+    </div>
+
+    <script>
+        // Array of products for the store (Prices converted from USD to INR, approx $1 = ₹83)
+        const products = [
+            { id: 1, name: "Minimalist Linen Shirt", category: "Tops", price: 5395.00, img: "https://placehold.co/300x300/a395b2/ffffff?text=Linen+Shirt", featured: true },
+            { id: 2, name: "Tailored Wide-Leg Trousers", category: "Bottoms", price: 9130.00, img: "https://placehold.co/300x300/6a5f7f/ffffff?text=Trousers", featured: true },
+            { id: 3, name: "The Classic Trench Coat", category: "Outerwear", price: 20750.00, img: "https://placehold.co/300x300/c7b9e1/1a1a1a?text=Trench+Coat", featured: true },
+            { id: 4, name: "Silk Slip Dress", category: "Dresses", price: 12450.00, img: "https://placehold.co/300x300/8d7a9e/ffffff?text=Silk+Dress", featured: true },
+            { id: 5, name: "Leather Crossbody Bag", category: "Accessories", price: 14940.00, img: "https://placehold.co/300x300/b2a4c1/1a1a1a?text=Crossbody+Bag", featured: false },
+            { id: 6, name: "Cashmere Turtleneck", category: "Tops", price: 16185.00, img: "https://placehold.co/300x300/52485e/ffffff?text=Turtleneck", featured: false },
+            { id: 7, name: "Pleated Midi Skirt", category: "Bottoms", price: 7055.00, img: "https://placehold.co/300x300/d1c4e9/1a1a1a?text=Midi+Skirt", featured: false },
+            { id: 8, name: "Essential White Sneakers", category: "Footwear", price: 10375.00, img: "https://placehold.co/300x300/e8e0f0/1a1a1a?text=Sneakers", featured: false },
+        ];
+
+        let cart = [];
+
+        // --- Core Navigation and UI Functions ---
+
+        // Function to switch between main sections
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Close mobile nav after selection
+            const nav = document.getElementById('nav');
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+            }
+        }
+        
+        // Function to toggle mobile navigation
+        function toggleNav() {
+            document.getElementById('nav').classList.toggle('open');
+        }
+
+        // Function to show modals
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('show');
+            // Hide potential scrollbar on body when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modals
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrollbar
+        }
+        
+        // Function to close modal if click is outside modal-content
+        function closeModalOutside(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Function to display toast messages
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<p>${message}</p>`;
+            
+            container.appendChild(toast);
+            
+            // Trigger show animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10); // Small delay to ensure CSS transition works
+
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                // Remove from DOM after transition
+                setTimeout(() => toast.remove(), 300); 
+            }, 3000);
+        }
+
+        // --- Product Rendering Functions ---
+
+        // Helper to create a product card HTML
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null; this.src='https://placehold.co/300x300/6c757d/ffffff?text=Image+Missing';">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.category}</p>
+                        <span class="price">₹${product.price.toFixed(2)}</span>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render products into a specific grid
+        function renderProducts(productList, gridId) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = productList.map(createProductCard).join('');
+        }
+
+        // --- Cart Functions ---
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                updateCartUI();
+                showToast(`${product.name} added to cart!`, 'success');
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            const removedItem = cart.splice(index, 1)[0];
+            updateCartUI();
+            showToast(`${removedItem.name} removed.`, 'error');
+        }
+
+        // Update the cart icon count, list, and total
+        function updateCartUI() {
+            const cartList = document.getElementById('cartItemsList');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            const cartCountSpan = document.getElementById('cartCount');
+            const cartSummaryDiv = document.getElementById('cartSummary');
+
+            // 1. Update count
+            cartCountSpan.textContent = cart.length;
+
+            // 2. Render cart items
+            let total = 0;
+            if (cart.length === 0) {
+                cartList.innerHTML = '<li style="text-align: center; padding: 2rem; color: var(--secondary-color);">Your cart is empty.</li>';
+                cartSummaryDiv.classList.add('hidden');
+            } else {
+                cartSummaryDiv.classList.remove('hidden');
+                cartList.innerHTML = cart.map((item, index) => {
+                    total += item.price;
+                    return `
+                        <li class="cart-item">
+                            <div class="cart-item-details">
+                                <h4>${item.name}</h4>
+                                <p>₹${item.price.toFixed(2)}</p>
+                            </div>
+                            <button class="remove-from-cart-btn" onclick="removeFromCart(${index})">Remove</button>
+                        </li>
+                    `;
+                }).join('');
+            }
+
+            // 3. Update total
+            cartTotalSpan.textContent = `₹${total.toFixed(2)}`;
+        }
+
+        // Simulate checkout process
+        function checkout() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty!", 'error');
+                return;
+            }
+            
+            showToast("Checkout successful! Thank you for your order.", 'success');
+            cart = []; // Clear cart
+            updateCartUI();
+            setTimeout(() => showSection('home'), 1500); // Navigate back to home
+        }
+
+
+        // --- Initialization ---
+        window.onload = function() {
+            // 1. Filter and render featured products
+            const featuredProducts = products.filter(p => p.featured);
+            renderProducts(featuredProducts, 'featuredProductsGrid');
+
+            // 2. Render random suggestions
+            const shuffled = [...products].sort(() => 0.5 - Math.random());
+            const randomSuggestions = shuffled.slice(0, 4);
+            renderProducts(randomSuggestions, 'randomSuggestionsGrid');
+            
+            // 3. Render the Full Collection page
+            renderProducts(products, 'allProductsGrid');
+            
+            // 4. Update cart UI on load
+            updateCartUI();
+        }
+        
+        // Handle form submissions (prevent default submit and provide feedback)
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Login successful (simulated)! Welcome back.', 'success');
+            closeModal('loginModal');
+            // Simulate login, redirect to home
+            setTimeout(() => showSection('home'), 1500);
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Registration successful (simulated)! Please log in.', 'success');
+            closeModal('registerModal');
+            // Prompt user to login
+            setTimeout(() => showModal('loginModal'), 1500);
+        });
+
+    </script>
+
+</body>
+</html>
